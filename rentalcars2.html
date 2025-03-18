@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Rental in Bangkok - Rentalcars.com</title>
+    <style>
+      /* Reset and base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+
+      body {
+        color: #333;
+        line-height: 1.5;
+        background-color: #f5f5f5;
+      }
+
+      a {
+        text-decoration: none;
+        color: #0071c2;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      /* Header styles */
+      .top-header {
+        background-color: #006ce4;
+        color: white;
+        padding: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10%;
+        height: 64px;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-container img {
+        height: 24px;
+      }
+
+      .by-text {
+        margin: 0 8px;
+        font-size: 14px;
+        color: white;
+      }
+
+      .user-actions {
+        display: flex;
+        align-items: center;
+      }
+
+      .currency-selector {
+        margin-right: 15px;
+        font-weight: bold;
+      }
+
+      .flag-icon {
+        width: 24px;
+        height: 16px;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+
+      .manage-booking-btn {
+        background-color: white;
+        color: #006ce4;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      /* Navigation */
+      .main-nav {
+        background-color: #006ce4;
+        padding: 0 10%;
+        display: flex;
+        gap: 20px;
+        padding-bottom: 16px;
+      }
+
+      .nav-item {
+        color: white;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+      }
+
+      .nav-item.active {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 24px;
+      }
+
+      .nav-item i {
+        margin-right: 8px;
+      }
+
+      /* Search summary */
+      .search-summary {
+        margin: 20px 10%;
+        background-color: white;
+        border: 1px solid #febb02;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+      }
+
+      .location-dates {
+        display: flex;
+        align-items: center;
+      }
+
+      .location-box {
+        margin-right: 20px;
+      }
+
+      .location-name {
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      .location-date {
+        color: #666;
+        font-size: 14px;
+      }
+
+      .arrow {
+        margin: 0 20px;
+        color: #666;
+      }
+
+      .edit-btn {
+        background-color: #00a976;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      /* Main content */
+      .main-content {
+        display: flex;
+        margin: 0 10%;
+        gap: 20px;
+      }
+
+      /* Filters */
+      .filters {
+        width: 300px;
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        padding: 16px;
+      }
+
+      .filter-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .filter-title {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .clear-filters {
+        color: #0071c2;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      .filter-section {
+        margin-bottom: 24px;
+        border-bottom: 1px solid #e7e7e7;
+        padding-bottom: 16px;
+      }
+
+      .filter-section:last-child {
+        border-bottom: none;
+      }
+
+      .filter-section-title {
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+
+      .filter-option {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .filter-option label {
+        display: flex;
+        align-items: center;
+      }
+
+      .filter-option input[type="checkbox"] {
+        margin-right: 8px;
+        width: 18px;
+        height: 18px;
+      }
+
+      .filter-count {
+        color: #666;
+        font-size: 14px;
+      }
+
+      /* Results */
+      .results {
+        flex: 1;
+      }
+
+      .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .results-count {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .sort-dropdown {
+        display: flex;
+        align-items: center;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 8px 12px;
+        cursor: pointer;
+      }
+
+      .sort-dropdown i {
+        margin-right: 8px;
+      }
+
+      /* Car categories */
+      .car-categories {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .car-category {
+        background-color: white;
+        border-radius: 4px;
+        padding: 12px;
+        text-align: center;
+        width: 16%;
+        cursor: pointer;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .car-category i {
+        font-size: 24px;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .car-category-name {
+        font-size: 14px;
+      }
+
+      /* Car cards */
+      .car-card {
+        background-color: white;
+        border-radius: 4px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .car-card-header {
+        background-color: #ebf3ff;
+        padding: 8px 16px;
+        font-size: 14px;
+        color: #0071c2;
+        font-weight: bold;
+      }
+
+      .car-card-content {
+        display: flex;
+        padding: 16px;
+      }
+
+      .car-image {
+        width: 200px;
+        height: 120px;
+        object-fit: contain;
+        margin-right: 20px;
+      }
+
+      .car-details {
+        flex: 1;
+      }
+
+      .car-type {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+
+      .car-model {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+
+      .car-features {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+
+      .car-feature {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .car-feature i {
+        margin-right: 8px;
+        color: #666;
+      }
+
+      .car-location {
+        color: #0071c2;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+
+      .location-distance {
+        color: #666;
+        font-size: 14px;
+      }
+
+      .car-price {
+        width: 200px;
+        text-align: right;
+        padding-right: 16px;
+      }
+
+      .price-label {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 4px;
+      }
+
+      .price-amount {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+
+      .price-strikethrough {
+        text-decoration: line-through;
+        color: #666;
+        font-size: 16px;
+        margin-right: 8px;
+      }
+
+      .free-cancellation {
+        color: #00a976;
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .pay-now {
+        color: #00a976;
+        font-size: 14px;
+        margin-bottom: 12px;
+        text-align: right;
+      }
+
+      .view-deal-btn {
+        background-color: #00a976;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 12px 16px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      .car-card-footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-top: 1px solid #e7e7e7;
+      }
+
+      .supplier-rating {
+        display: flex;
+        align-items: center;
+      }
+
+      .supplier-logo {
+        height: 24px;
+        margin-right: 12px;
+      }
+
+      .rating-score {
+        background-color: #0071c2;
+        color: white;
+        font-weight: bold;
+        padding: 4px 8px;
+        border-radius: 4px;
+        margin-right: 8px;
+      }
+
+      .rating-text {
+        font-weight: bold;
+      }
+
+      .rating-count {
+        color: #666;
+        font-size: 14px;
+      }
+
+      .card-actions {
+        display: flex;
+        align-items: center;
+      }
+
+      .info-link,
+      .quote-link {
+        display: flex;
+        align-items: center;
+        color: #0071c2;
+        margin-left: 16px;
+        font-size: 14px;
+      }
+
+      .info-link i,
+      .quote-link i {
+        margin-right: 4px;
+      }
+
+      .discount-badge {
+        background-color: #d32f2f;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 4px 8px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+
+      /* Footer */
+      .footer-nav {
+        background-color: #006ce4;
+        padding: 10px 10%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 40px;
+      }
+
+      .footer-link {
+        color: white;
+        margin-right: 15px;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+
+      .footer-top {
+        background-color: #f5f5f5;
+        padding: 20px 10%;
+      }
+
+      .company-info {
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+
+      .partner-logos {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px 0;
+      }
+
+      .partner-logo {
+        height: 24px;
+      }
+
+      .copyright {
+        text-align: center;
+        padding: 10px 0;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="logo-container">
+        <img
+          src="https://cf.bstatic.com/static/img/rentalcars/logo/rc-logo-blue-bg/9dec8a3bc49a31a1d0dc32ba1b1e2e4d25e626d0.svg"
+          alt="Rentalcars.com"
+        />
+        <span class="by-text">by</span>
+        <img
+          src="https://cf.bstatic.com/static/img/rentalcars/logo/booking-logo-blue-bg/78f761b338c4d0b9ec195c5bdad0ac9e0cae3260.svg"
+          alt="Booking.com"
+        />
+      </div>
+      <div class="user-actions">
+        <div class="currency-selector">
+          USD
+          <img
+            class="flag-icon"
+            src="https://cf.bstatic.com/static/img/flags/24/us/f6eda3c00f6cd561646f6345f15f4b1e4e2069d7.png"
+            alt="US Flag"
+          />
+        </div>
+        <button class="manage-booking-btn">Manage booking</button>
+      </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+      <a href="#" class="nav-item"> <i>🏠</i> Stays </a>
+      <a href="#" class="nav-item"> <i>✈️</i> Flights </a>
+      <a href="#" class="nav-item active"> <i>🚗</i> Car rentals </a>
+      <a href="#" class="nav-item"> <i>🎭</i> Attractions </a>
+      <a href="#" class="nav-item"> <i>🚕</i> Airport taxis </a>
+    </nav>
+
+    <!-- Search Summary -->
+    <div class="search-summary">
+      <div class="location-dates">
+        <div class="location-box">
+          <div class="location-name">Bangkok</div>
+          <div class="location-date">Sat, May 24, 2025, 9:30 AM</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="location-box">
+          <div class="location-name">Bangkok</div>
+          <div class="location-date">Wed, May 28, 2025, 9:00 AM</div>
+        </div>
+      </div>
+      <button class="edit-btn">Edit</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Filters -->
+      <div class="filters">
+        <div class="filter-header">
+          <div class="filter-title">Filter</div>
+          <div class="clear-filters">Clear all filters</div>
+        </div>
+
+        <!-- Supplier Filter -->
+        <div class="filter-section">
+          <div class="filter-section-title">Supplier</div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> ASAP Car Rental </label>
+            <span class="filter-count">12</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Avis </label>
+            <span class="filter-count">31</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Budget </label>
+            <span class="filter-count">27</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Chic Car Rent </label>
+            <span class="filter-count">33</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Drive Car Rental </label>
+            <span class="filter-count">84</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Hertz </label>
+            <span class="filter-count">22</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Keddy By Europcar </label>
+            <span class="filter-count">21</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Sixt </label>
+            <span class="filter-count">81</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Thai Rent A car </label>
+            <span class="filter-count">27</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Thrifty </label>
+            <span class="filter-count">28</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Yesaway </label>
+            <span class="filter-count">23</span>
+          </div>
+        </div>
+
+        <!-- Location Filter -->
+        <div class="filter-section">
+          <div class="filter-section-title">Location</div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Airport (in terminal) </label>
+            <span class="filter-count">180</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Airport (airport hotel) </label>
+            <span class="filter-count">7</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Airport (meet & greet) </label>
+            <span class="filter-count">27</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Airport (shuttle) </label>
+            <span class="filter-count">17</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> All other locations </label>
+            <span class="filter-count">158</span>
+          </div>
+        </div>
+
+        <!-- Price Filter -->
+        <div class="filter-section">
+          <div class="filter-section-title">Price per day</div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> $0 - $50 </label>
+            <span class="filter-count">166</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> $50 - $100 </label>
+            <span class="filter-count">176</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> $100 - $150 </label>
+            <span class="filter-count">31</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> $150 - $200 </label>
+            <span class="filter-count">4</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> $200 + </label>
+            <span class="filter-count">12</span>
+          </div>
+        </div>
+
+        <!-- Electric Cars Filter -->
+        <div class="filter-section">
+          <div class="filter-section-title">Electric cars</div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Fully electric </label>
+            <span class="filter-count">21</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Hybrid </label>
+            <span class="filter-count">21</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Plug-in hybrid </label>
+            <span class="filter-count">3</span>
+          </div>
+        </div>
+
+        <!-- Mileage Filter -->
+        <div class="filter-section">
+          <div class="filter-section-title">Mileage</div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Unlimited </label>
+            <span class="filter-count">389</span>
+          </div>
+        </div>
+
+        <!-- Transmission Filter -->
+        <div class="filter-section">
+          <div class="filter-section-title">Transmission</div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Automatic </label>
+            <span class="filter-count">383</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Manual </label>
+            <span class="filter-count">6</span>
+          </div>
+        </div>
+
+        <!-- Review Score Filter -->
+        <div class="filter-section">
+          <div class="filter-section-title">Review score</div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Superb: 9+ </label>
+            <span class="filter-count">149</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Very good: 8+ </label>
+            <span class="filter-count">298</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Good: 7+ </label>
+            <span class="filter-count">325</span>
+          </div>
+        </div>
+
+        <!-- Car Category Filter -->
+        <div class="filter-section">
+          <div class="filter-section-title">Car category</div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Small </label>
+            <span class="filter-count">97</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Medium </label>
+            <span class="filter-count">125</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Large </label>
+            <span class="filter-count">180</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Premium </label>
+            <span class="filter-count">20</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Minivans </label>
+            <span class="filter-count">48</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> SUVs </label>
+            <span class="filter-count">112</span>
+          </div>
+        </div>
+
+        <!-- Fuel Policy Filter -->
+        <div class="filter-section">
+          <div class="filter-section-title">Fuel policy</div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> Like for like </label>
+            <span class="filter-count">389</span>
+          </div>
+        </div>
+
+        <!-- Deposit Filter -->
+        <div class="filter-section">
+          <div class="filter-section-title">Deposit required at pick-up</div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> $0 - $300 </label>
+            <span class="filter-count">245</span>
+          </div>
+          <div class="filter-option">
+            <label> <input type="checkbox" /> $300 - $600 </label>
+            <span class="filter-count">124</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="results">
+        <div class="results-header">
+          <div class="results-count">389 cars available</div>
+          <div class="sort-dropdown"><i>↓↑</i> Sort by: Recommended</div>
+        </div>
+
+        <!-- Car Categories -->
+        <div class="car-categories">
+          <div class="car-category">
+            <i>🚗</i>
+            <div class="car-category-name">Medium car</div>
+          </div>
+          <div class="car-category">
+            <i>🚗</i>
+            <div class="car-category-name">Small car</div>
+          </div>
+          <div class="car-category">
+            <i>🚗</i>
+            <div class="car-category-name">Large car</div>
+          </div>
+          <div class="car-category">
+            <i>🚙</i>
+            <div class="car-category-name">SUVs</div>
+          </div>
+          <div class="car-category">
+            <i>🚐</i>
+            <div class="car-category-name">Minivan</div>
+          </div>
+          <div class="car-category">
+            <i>🚗</i>
+            <div class="car-category-name">Premium car</div>
+          </div>
+        </div>
+
+        <!-- Car Card 1 -->
+        <div class="car-card">
+          <div class="car-card-content">
+            <img
+              src="https://cdn.rcstatic.com/images/car_images/web/toyota/yaris_lrg.jpg"
+              alt="Economy Toyota Altis"
+              class="car-image"
+            />
+            <div class="car-details">
+              <div class="car-type">Economy</div>
+              <div class="car-model">Toyota Altis or similar</div>
+              <div class="car-features">
+                <div class="car-feature"><i>👤</i> 4 seats</div>
+                <div class="car-feature"><i>🔄</i> Automatic</div>
+                <div class="car-feature"><i>🧳</i> 1 Large bag</div>
+                <div class="car-feature"><i>🎒</i> 1 Small bag</div>
+                <div class="car-feature"><i>∞</i> Unlimited mileage</div>
+              </div>
+              <div class="car-location">
+                Bangkok Downtown - North Sathorn Road
+              </div>
+              <div class="location-distance">3.1 miles from center</div>
+            </div>
+            <div class="car-price">
+              <div class="price-label">Price for 4 days:</div>
+              <div class="price-amount">$100</div>
+              <div class="free-cancellation">Free cancellation</div>
+              <div class="pay-now">Pay now</div>
+              <button class="view-deal-btn">View deal</button>
+            </div>
+          </div>
+          <div class="car-card-footer">
+            <div class="supplier-rating">
+              <img
+                src="https://cdn.rcstatic.com/images/supplier_logos/hertz_logo_lrg.gif"
+                alt="Hertz"
+                class="supplier-logo"
+              />
+              <div class="rating-score">8.9</div>
+              <div class="rating-text">Fabulous</div>
+              <div class="rating-count">100+ reviews</div>
+            </div>
+            <div class="card-actions">
+              <a href="#" class="info-link"><i>ℹ️</i> Important info</a>
+              <a href="#" class="quote-link"><i>✉️</i> Email quote</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car Card 2 -->
+        <div class="car-card">
+          <div class="car-card-header">Top Pick</div>
+          <div class="car-card-content">
+            <img
+              src="https://cdn.rcstatic.com/images/car_images/web/toyota/yaris_lrg.jpg"
+              alt="Mini Toyota Yaris"
+              class="car-image"
+            />
+            <div class="car-details">
+              <div class="car-type">Mini</div>
+              <div class="car-model">Toyota Yaris or similar</div>
+              <div class="car-features">
+                <div class="car-feature"><i>👤</i> 4 seats</div>
+                <div class="car-feature"><i>🔄</i> Automatic</div>
+                <div class="car-feature"><i>🧳</i> 1 Large bag</div>
+                <div class="car-feature"><i>🎒</i> 1 Small bag</div>
+                <div class="car-feature"><i>∞</i> Unlimited mileage</div>
+              </div>
+              <div class="car-location">
+                Bangkok Downtown - North Sathorn Road
+              </div>
+              <div class="location-distance">3.1 miles from center</div>
+            </div>
+            <div class="car-price">
+              <div class="price-label">Price for 4 days:</div>
+              <div class="price-amount">$92</div>
+              <div class="free-cancellation">Free cancellation</div>
+              <div class="pay-now">Pay now</div>
+              <button class="view-deal-btn">View deal</button>
+            </div>
+          </div>
+          <div class="car-card-footer">
+            <div class="supplier-rating">
+              <img
+                src="https://cdn.rcstatic.com/images/supplier_logos/thrifty_logo_lrg.gif"
+                alt="Thrifty"
+                class="supplier-logo"
+              />
+              <div class="rating-score">9.2</div>
+              <div class="rating-text">Superb</div>
+              <div class="rating-count">96 reviews</div>
+            </div>
+            <div class="card-actions">
+              <a href="#" class="info-link"><i>ℹ️</i> Important info</a>
+              <a href="#" class="quote-link"><i>✉️</i> Email quote</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car Card 3 -->
+        <div class="car-card">
+          <div class="car-card-content">
+            <img
+              src="https://cdn.rcstatic.com/images/car_images/web/toyota/yaris_lrg.jpg"
+              alt="Mini Toyota Yaris"
+              class="car-image"
+            />
+            <div class="car-details">
+              <div class="car-type">Mini</div>
+              <div class="car-model">Toyota Yaris or similar</div>
+              <div class="car-features">
+                <div class="car-feature"><i>👤</i> 4 seats</div>
+                <div class="car-feature"><i>🔄</i> Automatic</div>
+                <div class="car-feature"><i>🧳</i> 1 Large bag</div>
+                <div class="car-feature"><i>🎒</i> 1 Small bag</div>
+                <div class="car-feature"><i>∞</i> Unlimited mileage</div>
+              </div>
+              <div class="car-location">Don Mueang International Airport</div>
+              <div class="location-distance">13.2 miles from center</div>
+            </div>
+            <div class="car-price">
+              <div class="price-label">Price for 4 days:</div>
+              <div class="price-amount">$92</div>
+              <div class="free-cancellation">Free cancellation</div>
+              <div class="pay-now">Pay now</div>
+              <button class="view-deal-btn">View deal</button>
+            </div>
+          </div>
+          <div class="car-card-footer">
+            <div class="supplier-rating">
+              <img
+                src="https://cdn.rcstatic.com/images/supplier_logos/hertz_logo_lrg.gif"
+                alt="Hertz"
+                class="supplier-logo"
+              />
+              <div class="rating-score">8.6</div>
+              <div class="rating-text">Fabulous</div>
+              <div class="rating-count">200+ reviews</div>
+            </div>
+            <div class="card-actions">
+              <a href="#" class="info-link"><i>ℹ️</i> Important info</a>
+              <a href="#" class="quote-link"><i>✉️</i> Email quote</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car Card 4 -->
+        <div class="car-card">
+          <div class="car-card-content">
+            <img
+              src="https://cdn.rcstatic.com/images/car_images/web/honda/civic_lrg.jpg"
+              alt="Intermediate Honda Civic"
+              class="car-image"
+            />
+            <div class="car-details">
+              <div class="car-type">Intermediate</div>
+              <div class="car-model">Honda Civic or similar</div>
+              <div class="car-features">
+                <div class="car-feature"><i>👤</i> 4 seats</div>
+                <div class="car-feature"><i>🔄</i> Automatic</div>
+                <div class="car-feature"><i>🧳</i> 1 Large bag</div>
+                <div class="car-feature"><i>🎒</i> 1 Small bag</div>
+                <div class="car-feature"><i>∞</i> Unlimited mileage</div>
+              </div>
+              <div class="car-location">
+                Bangkok Downtown - North Sathorn Road
+              </div>
+              <div class="location-distance">3.1 miles from center</div>
+            </div>
+            <div class="car-price">
+              <div class="price-label">Price for 4 days:</div>
+              <div class="price-amount">$125</div>
+              <div class="free-cancellation">Free cancellation</div>
+              <div class="pay-now">Pay now</div>
+              <button class="view-deal-btn">View deal</button>
+            </div>
+          </div>
+          <div class="car-card-footer">
+            <div class="supplier-rating">
+              <img
+                src="https://cdn.rcstatic.com/images/supplier_logos/hertz_logo_lrg.gif"
+                alt="Hertz"
+                class="supplier-logo"
+              />
+              <div class="rating-score">8.9</div>
+              <div class="rating-text">Fabulous</div>
+              <div class="rating-count">100+ reviews</div>
+            </div>
+            <div class="card-actions">
+              <a href="#" class="info-link"><i>ℹ️</i> Important info</a>
+              <a href="#" class="quote-link"><i>✉️</i> Email quote</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car Card 5 -->
+        <div class="car-card">
+          <div class="car-card-content">
+            <img
+              src="https://cdn.rcstatic.com/images/car_images/web/toyota/yaris_lrg.jpg"
+              alt="Mini Toyota Yaris"
+              class="car-image"
+            />
+            <div class="car-details">
+              <div class="car-type">Mini</div>
+              <div class="car-model">Toyota Yaris or similar</div>
+              <div class="car-features">
+                <div class="car-feature"><i>👤</i> 4 seats</div>
+                <div class="car-feature"><i>🔄</i> Automatic</div>
+                <div class="car-feature"><i>🧳</i> 1 Large bag</div>
+                <div class="car-feature"><i>🎒</i> 1 Small bag</div>
+                <div class="car-feature"><i>∞</i> Unlimited mileage</div>
+              </div>
+              <div class="car-location">Suvarnabhumi Airport</div>
+              <div class="location-distance">17 miles from center</div>
+            </div>
+            <div class="car-price">
+              <div class="price-label">Price for 4 days:</div>
+              <div class="price-amount">$92</div>
+              <div class="free-cancellation">Free cancellation</div>
+              <div class="pay-now">Pay now</div>
+              <button class="view-deal-btn">View deal</button>
+            </div>
+          </div>
+          <div class="car-card-footer">
+            <div class="supplier-rating">
+              <img
+                src="https://cdn.rcstatic.com/images/supplier_logos/thrifty_logo_lrg.gif"
+                alt="Thrifty"
+                class="supplier-logo"
+              />
+              <div class="rating-score">8.2</div>
+              <div class="rating-text">Very good</div>
+              <div class="rating-count">300+ reviews</div>
+            </div>
+            <div class="card-actions">
+              <a href="#" class="info-link"><i>ℹ️</i> Important info</a>
+              <a href="#" class="quote-link"><i>✉️</i> Email quote</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Car Card 6 with Discount -->
+        <div class="car-card">
+          <div class="car-card-content">
+            <img
+              src="https://cdn.rcstatic.com/images/car_images/web/toyota/yaris_lrg.jpg"
+              alt="Economy Toyota Yaris"
+              class="car-image"
+            />
+            <div class="car-details">
+              <div class="discount-badge">33% discount applied</div>
+              <div class="car-type">Economy</div>
+              <div class="car-model">Toyota Yaris or similar</div>
+              <div class="car-features">
+                <div class="car-feature"><i>👤</i> 4 seats</div>
+                <div class="car-feature"><i>🔄</i> Automatic</div>
+                <div class="car-feature"><i>🧳</i> 1 Large bag</div>
+                <div class="car-feature"><i>🎒</i> 1 Small bag</div>
+                <div class="car-feature"><i>∞</i> Unlimited mileage</div>
+              </div>
+              <div class="car-location">Don Mueang International Airport</div>
+              <div class="location-distance">12.8 miles from center</div>
+            </div>
+            <div class="car-price">
+              <div class="price-label">Price for 4 days:</div>
+              <div class="price-amount">
+                <span class="price-strikethrough">$155</span>$104
+              </div>
+              <div class="free-cancellation">Free cancellation</div>
+              <div class="pay-now">Pay now</div>
+              <button class="view-deal-btn">View deal</button>
+            </div>
+          </div>
+          <div class="car-card-footer">
+            <div class="supplier-rating">
+              <img
+                src="https://cdn.rcstatic.com/images/supplier_logos/thairent_logo_lrg.gif"
+                alt="ThaiRent"
+                class="supplier-logo"
+              />
+              <div class="rating-score">8</div>
+              <div class="rating-text">Very good</div>
+              <div class="rating-count">400+ reviews</div>
+            </div>
+            <div class="card-actions">
+              <a href="#" class="info-link"><i>ℹ️</i> Important info</a>
+              <a href="#" class="quote-link"><i>✉️</i> Email quote</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-nav">
+        <a href="#" class="footer-link">Privacy Statement</a>
+        <a href="#" class="footer-link">Cookies</a>
+        <a href="#" class="footer-link">Terms of service</a>
+        <a href="#" class="footer-link">Help</a>
+        <a href="#" class="footer-link">Modern Slavery Statement</a>
+        <a href="#" class="footer-link">Human Rights Statement</a>
+        <a href="#" class="footer-link">How we Work</a>
+        <a href="#" class="footer-link"
+          >Supply Partner Enquiry and Marketplace</a
+        >
+        <a href="#" class="footer-link">Affiliate Programme</a>
+        <a href="#" class="footer-link">Careers</a>
+        <a href="#" class="footer-link">Contact Us</a>
+      </div>
+      <div class="footer-top">
+        <div class="company-info">
+          <p>
+            Rentalcars.com is a trading name of Booking.com Transport Limited
+            which is a limited company registered in England and Wales (Number:
+            05179829) whose registered address is at 6 Goods Yard Street,
+            Manchester, M3 3BG, United Kingdom. VAT number: GB 855349007.
+          </p>
+          <p>
+            Rentalcars.com is part of Booking Holdings Inc., the world leader in
+            online travel & related services.
+          </p>
+        </div>
+        <div class="partner-logos">
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/booking-logo/f9e67e36c223177bfad5dbb395542ae5f8a65124.svg"
+            alt="Booking.com"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/priceline-logo/f1a9a5813af4f1a8b5f9d95e6548d5ec0ff9a746.svg"
+            alt="Priceline"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/kayak-logo/2e5c0ab4f8a5e7dfd79f0c10a3c11afe3e005f3a.svg"
+            alt="KAYAK"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/agoda-logo/eb08a3c97e86c8b75a3b9b0c8c26a1d2a9f2986e.svg"
+            alt="Agoda"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/rc-logo/5ca42296a5c1d4a645d5cc5aad4c9e5e9e9e9d9e.svg"
+            alt="Rentalcars.com"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/opentable-logo/a7e58f7a3d7e3eb3e8b2a4c5c7c5c5c5c5c5c5c5.svg"
+            alt="OpenTable"
+          />
+        </div>
+        <div class="copyright">
+          Copyright © 2023 Booking.com Transport Limited trading as
+          Rentalcars.com. All rights reserved
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
