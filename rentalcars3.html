@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Protection Options - Rentalcars.com</title>
+    <style>
+      /* Reset and base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+
+      body {
+        color: #333;
+        line-height: 1.5;
+        background-color: #f5f5f5;
+      }
+
+      a {
+        text-decoration: none;
+        color: #0071c2;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      /* Header styles */
+      .top-header {
+        background-color: #006ce4;
+        color: white;
+        padding: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10%;
+        height: 64px;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-container img {
+        height: 24px;
+      }
+
+      .by-text {
+        margin: 0 8px;
+        font-size: 14px;
+        color: white;
+      }
+
+      .user-actions {
+        display: flex;
+        align-items: center;
+      }
+
+      .currency-selector {
+        margin-right: 15px;
+        font-weight: bold;
+      }
+
+      .flag-icon {
+        width: 24px;
+        height: 16px;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+
+      .manage-booking-btn {
+        background-color: white;
+        color: #006ce4;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      /* Navigation */
+      .main-nav {
+        background-color: #006ce4;
+        padding: 0 10%;
+        display: flex;
+        gap: 20px;
+        padding-bottom: 16px;
+      }
+
+      .nav-item {
+        color: white;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+      }
+
+      .nav-item.active {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 24px;
+      }
+
+      .nav-item i {
+        margin-right: 8px;
+      }
+
+      /* Search summary */
+      .search-summary {
+        margin: 20px 10%;
+        background-color: white;
+        border: 1px solid #febb02;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+      }
+
+      .location-dates {
+        display: flex;
+        align-items: center;
+      }
+
+      .location-box {
+        margin-right: 20px;
+      }
+
+      .location-name {
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      .location-date {
+        color: #666;
+        font-size: 14px;
+      }
+
+      .arrow {
+        margin: 0 20px;
+        color: #666;
+      }
+
+      .edit-btn {
+        background-color: #00a976;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      /* Main content */
+      .main-content {
+        display: flex;
+        margin: 0 10%;
+        gap: 20px;
+      }
+
+      .protection-content {
+        flex: 1;
+      }
+
+      .back-link {
+        display: block;
+        margin-bottom: 16px;
+      }
+
+      .page-title {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+
+      .page-subtitle {
+        color: #666;
+        margin-bottom: 24px;
+      }
+
+      .progress-bar {
+        display: flex;
+        margin-bottom: 40px;
+        position: relative;
+      }
+
+      .progress-bar::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: #e7e7e7;
+        z-index: 1;
+      }
+
+      .progress-step {
+        width: 33.33%;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      .progress-step.active::before {
+        background-color: #0071c2;
+      }
+
+      .progress-step::before {
+        content: "";
+        display: block;
+        width: 16px;
+        height: 16px;
+        background-color: #e7e7e7;
+        border-radius: 50%;
+        margin: 0 auto 8px;
+      }
+
+      .protection-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      .protection-title {
+        font-size: 24px;
+        margin-right: 8px;
+      }
+
+      .protection-subtitle {
+        color: #00a976;
+        font-size: 24px;
+      }
+
+      .free-cancellation {
+        background-color: white;
+        border-radius: 4px;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .free-cancellation i {
+        color: #00a976;
+        font-size: 24px;
+        margin-right: 16px;
+      }
+
+      .free-cancellation-text {
+        font-weight: bold;
+      }
+
+      .protection-info {
+        margin-bottom: 24px;
+      }
+
+      .protection-terms {
+        margin-bottom: 24px;
+      }
+
+      .protection-table {
+        background-color: white;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 24px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .protection-row {
+        display: flex;
+        border-bottom: 1px solid #e7e7e7;
+      }
+
+      .protection-row:last-child {
+        border-bottom: none;
+      }
+
+      .protection-cell {
+        padding: 16px;
+        display: flex;
+        align-items: center;
+      }
+
+      .protection-cell.header {
+        font-weight: bold;
+        background-color: #f9f9f9;
+      }
+
+      .protection-cell.feature {
+        flex: 1;
+        cursor: pointer;
+      }
+
+      .protection-cell.no-protection,
+      .protection-cell.with-protection {
+        width: 200px;
+        justify-content: center;
+      }
+
+      .protection-cell i {
+        margin-right: 8px;
+      }
+
+      .protection-cell .check {
+        color: #00a976;
+        font-size: 24px;
+      }
+
+      .protection-cell .cross {
+        color: #e74c3c;
+        font-size: 24px;
+      }
+
+      .protection-cell .chevron {
+        margin-left: auto;
+        color: #666;
+      }
+
+      .protection-price {
+        display: flex;
+        justify-content: space-between;
+        padding: 16px;
+        background-color: #f9f9f9;
+        border-top: 1px solid #e7e7e7;
+      }
+
+      .price-label {
+        font-weight: bold;
+      }
+
+      .price-amount {
+        font-weight: bold;
+      }
+
+      .price-amount.highlight {
+        color: #00a976;
+      }
+
+      .warning-note {
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        border-radius: 4px;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      .warning-note i {
+        color: #856404;
+        font-size: 24px;
+        margin-right: 16px;
+      }
+
+      .booking-buttons {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 40px;
+      }
+
+      .booking-btn {
+        flex: 1;
+        padding: 16px;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+        border: none;
+      }
+
+      .booking-btn.without-protection {
+        background-color: white;
+        color: #0071c2;
+        border: 1px solid #0071c2;
+      }
+
+      .booking-btn.with-protection {
+        background-color: #00a976;
+        color: white;
+      }
+
+      .booking-btn-title {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .booking-btn-subtitle {
+        font-weight: normal;
+        font-size: 14px;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 350px;
+      }
+
+      .sidebar-section {
+        background-color: white;
+        border-radius: 4px;
+        padding: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .sidebar-title {
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+
+      .price-breakdown-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+
+      .price-breakdown-total {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+        padding-top: 8px;
+        border-top: 1px solid #e7e7e7;
+      }
+
+      .pickup-dropoff-section {
+        margin-bottom: 24px;
+      }
+
+      .pickup-dropoff-title {
+        font-size: 18px;
+        margin-bottom: 16px;
+      }
+
+      .location-item {
+        display: flex;
+        margin-bottom: 16px;
+        position: relative;
+      }
+
+      .location-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .location-item::before {
+        content: "";
+        position: absolute;
+        top: 24px;
+        left: 10px;
+        bottom: -8px;
+        width: 2px;
+        background-color: #e7e7e7;
+      }
+
+      .location-item:last-child::before {
+        display: none;
+      }
+
+      .location-marker {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #0071c2;
+        margin-right: 16px;
+        flex-shrink: 0;
+      }
+
+      .location-details {
+        flex: 1;
+      }
+
+      .location-date {
+        margin-bottom: 4px;
+      }
+
+      .location-name {
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+
+      .location-instructions {
+        color: #0071c2;
+      }
+
+      .deal-highlight {
+        background-color: #e6f7ef;
+        border: 1px solid #c3e6d1;
+        border-radius: 4px;
+        padding: 16px;
+      }
+
+      .deal-title {
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .fast-reliable {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .fast-reliable i {
+        color: #00a976;
+        font-size: 24px;
+        margin-right: 16px;
+      }
+
+      .fast-reliable-title {
+        font-weight: bold;
+      }
+
+      .fast-reliable-subtitle {
+        color: #666;
+      }
+
+      /* Footer */
+      .footer-nav {
+        background-color: #006ce4;
+        padding: 10px 10%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 40px;
+      }
+
+      .footer-link {
+        color: white;
+        margin-right: 15px;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+
+      .footer-top {
+        background-color: #f5f5f5;
+        padding: 20px 10%;
+      }
+
+      .company-info {
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+
+      .partner-logos {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px 0;
+      }
+
+      .partner-logo {
+        height: 24px;
+      }
+
+      .copyright {
+        text-align: center;
+        padding: 10px 0;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="logo-container">
+        <img
+          src="https://cf.bstatic.com/static/img/rentalcars/logo/rc-logo-blue-bg/9dec8a3bc49a31a1d0dc32ba1b1e2e4d25e626d0.svg"
+          alt="Rentalcars.com"
+        />
+        <span class="by-text">by</span>
+        <img
+          src="https://cf.bstatic.com/static/img/rentalcars/logo/booking-logo-blue-bg/78f761b338c4d0b9ec195c5bdad0ac9e0cae3260.svg"
+          alt="Booking.com"
+        />
+      </div>
+      <div class="user-actions">
+        <div class="currency-selector">
+          USD
+          <img
+            class="flag-icon"
+            src="https://cf.bstatic.com/static/img/flags/24/us/f6eda3c00f6cd561646f6345f15f4b1e4e2069d7.png"
+            alt="US Flag"
+          />
+        </div>
+        <button class="manage-booking-btn">Manage booking</button>
+      </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+      <a href="#" class="nav-item"> <i>🏠</i> Stays </a>
+      <a href="#" class="nav-item"> <i>✈️</i> Flights </a>
+      <a href="#" class="nav-item active"> <i>🚗</i> Car rentals </a>
+      <a href="#" class="nav-item"> <i>🎭</i> Attractions </a>
+      <a href="#" class="nav-item"> <i>🚕</i> Airport taxis </a>
+    </nav>
+
+    <!-- Search Summary -->
+    <div class="search-summary">
+      <div class="location-dates">
+        <div class="location-box">
+          <div class="location-name">Liverpool John Lennon Airport</div>
+          <div class="location-date">Mon, May 5, 2025, 11:30 AM</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="location-box">
+          <div class="location-name">Liverpool John Lennon Airport</div>
+          <div class="location-date">Wed, May 7, 2025, 11:00 AM</div>
+        </div>
+      </div>
+      <button class="edit-btn">Edit</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Protection Content -->
+      <div class="protection-content">
+        <a href="#" class="back-link">Back to Your deal</a>
+        <h1 class="page-title">Protection options</h1>
+        <div class="page-subtitle">Next... Checkout</div>
+
+        <div class="progress-bar">
+          <div class="progress-step active">Car selection</div>
+          <div class="progress-step active">Protection options</div>
+          <div class="progress-step">Checkout</div>
+        </div>
+
+        <div class="protection-header">
+          <h2 class="protection-title">Protection...</h2>
+          <div class="protection-subtitle">for peace of mind</div>
+        </div>
+
+        <div class="free-cancellation">
+          <i>✓</i>
+          <div>
+            <span class="free-cancellation-text">FREE cancellation</span>
+            Full refund ($36) if you cancel your plan anytime before pick-up
+          </div>
+        </div>
+
+        <div class="protection-info">
+          <p>
+            Collision Damage Protection from RentalCover.com: for $36, you'll
+            get $35,000 of primary protection with no deductible (the protection
+            price you see includes all applicable taxes and fees).
+          </p>
+        </div>
+
+        <div class="protection-terms">
+          <p>
+            This protection includes insurance and non-insurance assistance
+            services. Terms & conditions and standard exclusions apply. Please
+            read:
+          </p>
+          <a href="#">Protection Terms</a>
+        </div>
+
+        <div class="protection-table">
+          <div class="protection-row">
+            <div class="protection-cell header feature">What is covered</div>
+            <div class="protection-cell header no-protection">
+              No additional protection
+            </div>
+            <div class="protection-cell header with-protection">
+              Collision Damage Protection
+            </div>
+          </div>
+
+          <div class="protection-row">
+            <div class="protection-cell feature">
+              <i class="chevron">▼</i> $35,000 primary protection
+            </div>
+            <div class="protection-cell no-protection">
+              <i class="cross">✕</i>
+            </div>
+            <div class="protection-cell with-protection">
+              <i class="check">✓</i>
+            </div>
+          </div>
+
+          <div class="protection-row">
+            <div class="protection-cell feature">
+              <i class="chevron">▼</i> Covers damage and theft
+            </div>
+            <div class="protection-cell no-protection">
+              <i class="cross">✕</i>
+            </div>
+            <div class="protection-cell with-protection">
+              <i class="check">✓</i>
+            </div>
+          </div>
+
+          <div class="protection-row">
+            <div class="protection-cell feature">
+              <i class="chevron">▼</i> Covers all authorized drivers
+            </div>
+            <div class="protection-cell no-protection">
+              <i class="cross">✕</i>
+            </div>
+            <div class="protection-cell with-protection">
+              <i class="check">✓</i>
+            </div>
+          </div>
+
+          <div class="protection-price">
+            <div class="price-label">No protection price</div>
+            <div class="price-amount">$0</div>
+          </div>
+
+          <div class="protection-price">
+            <div class="price-label">Total protection price</div>
+            <div class="price-amount highlight">$36</div>
+          </div>
+        </div>
+
+        <div class="warning-note">
+          <i>ℹ️</i>
+          <div>
+            <strong>Please note:</strong> Your own car insurance is unlikely to
+            cover hire cars.
+          </div>
+        </div>
+
+        <div class="booking-buttons">
+          <a href="checkout.html" class="booking-btn without-protection">
+            <span class="booking-btn-title">Go to book</span>
+            <span class="booking-btn-subtitle"
+              >Without Collision Damage Protection</span
+            >
+          </a>
+          <a href="checkout.html" class="booking-btn with-protection">
+            <span class="booking-btn-title">Go to book</span>
+            <span class="booking-btn-subtitle"
+              >With Collision Damage Protection</span
+            >
+          </a>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-section">
+          <h3 class="sidebar-title">Car price breakdown</h3>
+          <div class="price-breakdown-item">
+            <div>Car hire charge</div>
+            <div>$122.32</div>
+          </div>
+          <div class="price-breakdown-total">
+            <div>Price for 2 days:</div>
+            <div>$122.32</div>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="deal-highlight">
+            <div class="deal-title">
+              This car is costing you just $122.32 – a fantastic deal...
+            </div>
+            <p>
+              At that time of year, the average SUV at Liverpool John Lennon
+              Airport costs $310.13!
+            </p>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 class="pickup-dropoff-title">Pick-up and drop-off</h3>
+          <div class="pickup-dropoff-section">
+            <div class="location-item">
+              <div class="location-marker"></div>
+              <div class="location-details">
+                <div class="location-date">Mon, May 5 · 11:30 AM</div>
+                <div class="location-name">Liverpool John Lennon Airport</div>
+                <a href="#" class="location-instructions"
+                  >View pick-up instructions</a
+                >
+              </div>
+            </div>
+            <div class="location-item">
+              <div class="location-marker"></div>
+              <div class="location-details">
+                <div class="location-date">Wed, May 7 · 11:00 AM</div>
+                <div class="location-name">Liverpool John Lennon Airport</div>
+                <a href="#" class="location-instructions"
+                  >View drop-off instructions</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="fast-reliable">
+            <i>✓</i>
+            <div>
+              <div class="fast-reliable-title">Fast and reliable</div>
+              <div class="fast-reliable-subtitle">
+                Over 97% of claims paid out
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-nav">
+        <a href="#" class="footer-link">Privacy Statement</a>
+        <a href="#" class="footer-link">Cookies</a>
+        <a href="#" class="footer-link">Terms of service</a>
+        <a href="#" class="footer-link">Help</a>
+        <a href="#" class="footer-link">Modern Slavery Statement</a>
+        <a href="#" class="footer-link">Human Rights Statement</a>
+        <a href="#" class="footer-link">How we Work</a>
+        <a href="#" class="footer-link"
+          >Supply Partner Enquiry and Marketplace</a
+        >
+        <a href="#" class="footer-link">Affiliate Programme</a>
+        <a href="#" class="footer-link">Careers</a>
+        <a href="#" class="footer-link">Contact Us</a>
+      </div>
+      <div class="footer-top">
+        <div class="company-info">
+          <p>
+            Rentalcars.com is a trading name of Booking.com Transport Limited
+            which is a limited company registered in England and Wales (Number:
+            05179829) whose registered address is at 6 Goods Yard Street,
+            Manchester, M3 3BG, United Kingdom. VAT number: GB 855349007.
+          </p>
+          <p>
+            Rentalcars.com is part of Booking Holdings Inc., the world leader in
+            online travel & related services.
+          </p>
+          <p>
+            For details of who provides and distributes the protection available
+            on our platform: <a href="#">Protection information</a>
+          </p>
+        </div>
+        <div class="partner-logos">
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/booking-logo/f9e67e36c223177bfad5dbb395542ae5f8a65124.svg"
+            alt="Booking.com"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/priceline-logo/f1a9a5813af4f1a8b5f9d95e6548d5ec0ff9a746.svg"
+            alt="Priceline"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/kayak-logo/2e5c0ab4f8a5e7dfd79f0c10a3c11afe3e005f3a.svg"
+            alt="KAYAK"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/agoda-logo/eb08a3c97e86c8b75a3b9b0c8c26a1d2a9f2986e.svg"
+            alt="Agoda"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/rc-logo/5ca42296a5c1d4a645d5cc5aad4c9e5e9e9e9d9e.svg"
+            alt="Rentalcars.com"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/opentable-logo/a7e58f7a3d7e3eb3e8b2a4c5c7c5c5c5c5c5c5c5.svg"
+            alt="OpenTable"
+          />
+        </div>
+        <div class="copyright">
+          Copyright © 2023 Booking.com Transport Limited trading as
+          Rentalcars.com. All rights reserved
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
