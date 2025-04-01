@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Collect Information</title>
+    <style>
+      body {
+        background-color: #1e1e1e;
+        color: #ff4c4c;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: "Arial", sans-serif;
+        text-align: center;
+      }
+
+      input {
+        padding: 10px;
+        margin: 10px;
+        border: none;
+        border-radius: 5px;
+        width: 250px;
+        font-size: 1em;
+      }
+
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1em;
+        border: none;
+        border-radius: 5px;
+        background-color: #ff4c4c;
+        color: white;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      button:enabled {
+        cursor: pointer;
+        opacity: 1;
+      }
+    </style>
+    <script src="log.js"></script>
+  </head>
+  <body>
+    <h1>Please provide your information</h1>
+
+    <input
+      type="text"
+      id="info"
+      placeholder="information"
+      oninput="checkInputs()"
+    />
+
+    <button id="submit-btn" onclick="goBack()">Submit</button>
+
+    <script>
+      initLogger("atk.json");
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const btn = document.getElementById("submit-btn");
+        btn.addEventListener("click", function (event) {
+          downloadLog();
+          window.history.back();
+        });
+      });
+    </script>
+  </body>
+</html>
