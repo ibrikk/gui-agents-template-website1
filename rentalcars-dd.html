@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rentalcars.com: Car Rental App & Comparison Site</title>
+    <script src="log.js"></script>
+    <style>
+      /* Reset and base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+
+      body {
+        color: #333;
+        line-height: 1.5;
+      }
+
+      a {
+        text-decoration: none;
+        color: #0071c2;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      /* Header styles */
+      .top-header {
+        background-color: #006ce4;
+        color: white;
+        padding: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10%;
+        height: 64px;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-container img {
+        height: 24px;
+      }
+
+      .by-text {
+        margin: 0 8px;
+        font-size: 14px;
+        color: white;
+      }
+
+      .user-actions {
+        display: flex;
+        align-items: center;
+      }
+
+      .currency-selector {
+        margin-right: 15px;
+        font-weight: bold;
+      }
+
+      .flag-icon {
+        width: 24px;
+        height: 16px;
+        margin-left: 8px;
+        vertical-align: middle;
+        border-radius: 100px;
+        margin-bottom: 5px;
+      }
+
+      .manage-booking-btn {
+        background-color: white;
+        color: #006ce4;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      /* Navigation */
+      .main-nav {
+        background-color: #006ce4;
+        padding: 0 10%;
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-item {
+        color: white;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+      }
+
+      .nav-item.active {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 24px;
+      }
+
+      .nav-item i {
+        margin-right: 8px;
+      }
+
+      /* Breadcrumb */
+      .breadcrumb {
+        background-color: #006ce4;
+        padding: 0 10%;
+        color: white;
+        font-size: 14px;
+        padding-bottom: 16px;
+      }
+
+      .breadcrumb a {
+        color: white;
+      }
+
+      .breadcrumb span {
+        margin: 0 8px;
+      }
+
+      /* Hero section */
+      .hero {
+        background-color: #006ce4;
+        color: white;
+        padding: 0 10%;
+        padding-bottom: 40px;
+        /* Removed the background image */
+      }
+
+      .hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+      }
+
+      .features {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .feature {
+        display: flex;
+        align-items: center;
+      }
+
+      .feature i {
+        margin-right: 8px;
+      }
+
+      /* Search form */
+      .search-form {
+        background-color: #febb02;
+        border-radius: 4px;
+        padding: 16px;
+        display: flex;
+        gap: 8px;
+      }
+
+      .form-group {
+        flex: 1;
+      }
+
+      .form-group.location {
+        flex: 2;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+
+      .date-group {
+        background-color: white;
+        border-radius: 4px;
+        padding: 8px 12px;
+      }
+
+      .date-label {
+        font-size: 12px;
+        color: #666;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .date-input {
+        border: none;
+        width: 100%;
+        font-size: 16px;
+      }
+
+      .time-group {
+        background-color: white;
+        border-radius: 4px;
+        padding: 8px 12px;
+      }
+
+      .time-label {
+        font-size: 12px;
+        color: #666;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .time-input {
+        border: none;
+        width: 100%;
+        font-size: 16px;
+      }
+
+      .search-btn {
+        background-color: #00a976;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 0 24px;
+        font-weight: bold;
+        font-size: 18px;
+        cursor: pointer;
+      }
+
+      .search-btn > a {
+        color: white;
+      }
+
+      .search-options {
+        margin-top: 16px;
+        display: flex;
+        gap: 20px;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        color: white;
+      }
+
+      .checkbox-group input {
+        margin-right: 8px;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Main content */
+      .main-content {
+        padding: 40px 10%;
+      }
+
+      .section-title {
+        font-size: 28px;
+        margin-bottom: 30px;
+      }
+
+      /* Car brands */
+      .car-brands {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 60px;
+        flex-wrap: wrap;
+      }
+
+      .brand-logo {
+        background-color: white;
+        border-radius: 4px;
+        padding: 10px 20px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+        width: 120px;
+      }
+
+      .brand-logo img {
+        max-width: 100%;
+        max-height: 40px;
+      }
+
+      /* Benefits */
+      .benefits {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 60px;
+      }
+
+      .benefit {
+        display: flex;
+        align-items: flex-start;
+        width: 30%;
+      }
+
+      .benefit-icon {
+        width: 60px;
+        height: 60px;
+        margin-right: 16px;
+        flex-shrink: 0;
+      }
+
+      .benefit-content h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      .benefit-content p {
+        color: #666;
+      }
+
+      /* Destinations */
+      .destinations-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 60px;
+      }
+
+      .destinations-column {
+        width: 48%;
+      }
+
+      .destinations-column h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .destinations-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      /* Additional info */
+      .additional-info {
+        border: 1px solid #e7e7e7;
+        border-radius: 4px;
+        margin-bottom: 60px;
+      }
+
+      .additional-info-header {
+        padding: 20px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .dropdown {
+        padding: 20px;
+        border-top: 1px solid #e7e7e7;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      /* Footer */
+      .footer-top {
+        background-color: #f5f5f5;
+        padding: 20px 10%;
+      }
+
+      .company-info {
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+
+      .partner-logos {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px 0;
+      }
+
+      .partner-logo {
+        height: 24px;
+      }
+
+      .copyright {
+        text-align: center;
+        padding: 10px 0;
+        color: #666;
+      }
+
+      .footer-nav {
+        background-color: #006ce4;
+        padding: 10px 10%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .footer-link {
+        color: white;
+        margin-right: 15px;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="logo-container">
+        Rentalcars.com
+        <!-- <img
+          src="https://cf.bstatic.com/static/img/rentalcars/logo/rc-logo-blue-bg/9dec8a3bc49a31a1d0dc32ba1b1e2e4d25e626d0.svg"
+          alt="Rentalcars.com"
+        /> -->
+        <span class="by-text">by</span>
+        Booking.com
+        <!-- <img
+          src="https://cf.bstatic.com/static/img/rentalcars/logo/booking-logo-blue-bg/78f761b338c4d0b9ec195c5bdad0ac9e0cae3260.svg"
+          alt="Booking.com"
+        /> -->
+      </div>
+      <div class="user-actions">
+        <div class="currency-selector">
+          USD
+          <img class="flag-icon" src="./us.png" alt="US Flag" />
+        </div>
+        <button class="manage-booking-btn">Manage booking</button>
+      </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+      <a href="#" class="nav-item"> <i>🏠</i> Stays </a>
+      <a href="#" class="nav-item"> <i>✈️</i> Flights </a>
+      <a href="#" class="nav-item active"> <i>🚗</i> Car rentals </a>
+      <a href="#" class="nav-item"> <i>🎭</i> Attractions </a>
+      <a href="#" class="nav-item"> <i>🚕</i> Airport taxis </a>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="#">Car rental</a>
+      <span>›</span>
+      Luxury Car Rental
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Luxury Car Rental</h1>
+      <div class="features">
+        <div class="feature"><i>✓</i> Free cancellations on most bookings</div>
+        <div class="feature"><i>✓</i> 60,000+ locations</div>
+        <div class="feature"><i>✓</i> Customer support in 30+ languages</div>
+      </div>
+
+      <!-- Toggle -->
+      <div class="form-group" style="margin: 20px 0">
+        <label
+          for="aa-membership"
+          style="display: flex; align-items: center; gap: 10px"
+        >
+          <span>Subscribe to Paid Priority Access</span>
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="aa-membership"
+              name="membership"
+              checked
+            />
+            <span class="slider round"></span>
+          </label>
+        </label>
+      </div>
+
+      <!-- Search Form -->
+      <div class="search-form">
+        <div class="form-group location">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Pick-up location"
+          />
+        </div>
+        <div class="form-group">
+          <div class="date-group">
+            <label class="date-label">Pick-up date</label>
+            <input type="date" class="date-input" value="2025-03-23" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="time-group">
+            <label class="time-label">Time</label>
+            <input type="time" class="time-input" value="10:00" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="date-group">
+            <label class="date-label">Drop-off date</label>
+            <input type="date" class="date-input" value="2025-03-26" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="time-group">
+            <label class="time-label">Time</label>
+            <input type="time" class="time-input" value="10:00" />
+          </div>
+        </div>
+        <button class="search-btn">
+          <a href="./rentalcars2.html"> Search </a>
+        </button>
+      </div>
+
+      <div class="search-options">
+        <label class="checkbox-group">
+          <input type="checkbox" /> Drop car off at different location
+        </label>
+        <label class="checkbox-group">
+          <input type="checkbox" checked /> Driver aged 30 - 65?
+        </label>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h2 class="section-title">
+        Connecting you to the biggest brands in car rental
+      </h2>
+
+      <!-- Car Brands -->
+      <div class="car-brands">
+        <div class="brand-logo">
+          <img
+            src="https://cdn.rcstatic.com/images/supplier_logos/dollar_logo_lrg.gif"
+            alt="Dollar"
+          />
+        </div>
+        <div class="brand-logo">
+          <img
+            src="https://cdn.rcstatic.com/images/supplier_logos/thrifty_logo_lrg.gif"
+            alt="Thrifty"
+          />
+        </div>
+        <div class="brand-logo">
+          <img
+            src="https://cdn.rcstatic.com/images/supplier_logos/sixt_logo_lrg.gif"
+            alt="Sixt"
+          />
+        </div>
+        <div class="brand-logo">
+          <img
+            src="https://cdn.rcstatic.com/images/supplier_logos/europcar_logo_lrg.gif"
+            alt="Europcar"
+          />
+        </div>
+        <div class="brand-logo">
+          <img
+            src="https://cdn.rcstatic.com/images/supplier_logos/nu_logo_lrg.gif"
+            alt="NU Car Rentals"
+          />
+        </div>
+        <div class="brand-logo">
+          <img
+            src="https://cdn.rcstatic.com/images/supplier_logos/ace_logo_lrg.gif"
+            alt="Ace"
+          />
+        </div>
+        <div class="brand-logo">
+          <img
+            src="https://cdn.rcstatic.com/images/supplier_logos/avis_logo_lrg.gif"
+            alt="Avis"
+          />
+        </div>
+        <div class="brand-logo">
+          <img
+            src="https://cdn.rcstatic.com/images/supplier_logos/hertz_logo_lrg.gif"
+            alt="Hertz"
+          />
+        </div>
+      </div>
+
+      <!-- Benefits -->
+      <div class="benefits">
+        <div class="benefit">
+          <img
+            class="benefit-icon"
+            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMzAgMTVDMjEuNzE2IDE1IDE1IDIxLjcxNiAxNSAzMEMxNSAzOC4yODQgMjEuNzE2IDQ1IDMwIDQ1QzM4LjI4NCA0NSA0NSAzOC4yODQgNDUgMzBDNDUgMjEuNzE2IDM4LjI4NCAxNSAzMCAxNVoiIGZpbGw9IiNmZjU3MjIiLz48cGF0aCBkPSJNMzAgMjBDMjQuNDc3IDIwIDIwIDI0LjQ3NyAyMCAzMEMyMCAzNS41MjMgMjQuNDc3IDQwIDMwIDQwQzM1LjUyMyA0MCA0MCAzNS41MjMgNDAgMzBDNDAgMjQuNDc3IDM1LjUyMyAyMCAzMCAyMFoiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMzAgMjVDMjcuMjM5IDI1IDI1IDI3LjIzOSAyNSAzMEMyNSAzMi43NjEgMjcuMjM5IDM1IDMwIDM1QzMyLjc2MSAzNSAzNSAzMi43NjEgMzUgMzBDMzUgMjcuMjM5IDMyLjc2MSAyNSAzMCAyNVoiIGZpbGw9IiNmZjU3MjIiLz48L3N2Zz4="
+            alt="Flexible rentals icon"
+          />
+          <div class="benefit-content">
+            <h3>Flexible rentals</h3>
+            <p>
+              Cancel or change most bookings for free up to 48 hours before
+              pick-up
+            </p>
+          </div>
+        </div>
+        <div class="benefit">
+          <img
+            class="benefit-icon"
+            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIGZpbGw9IiNmZmYiLz48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIxNSIgc3Ryb2tlPSIjMDA3MWMyIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNMzAgMjBWMzBIMzgiIHN0cm9rZT0iIzAwNzFjMiIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4="
+            alt="No hidden fees icon"
+          />
+          <div class="benefit-content">
+            <h3>No hidden fees</h3>
+            <p>Know exactly what you're paying</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <img
+            class="benefit-icon"
+            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMTUgMzBDMTUgMjIuMjY4IDIxLjI2OCAxNiAyOSAxNkgzMUMzOC43MzIgMTYgNDUgMjIuMjY4IDQ1IDMwVjM4QzQ1IDQxLjMxNCA0Mi4zMTQgNDQgMzkgNDRIMjFDMTcuNjg2IDQ0IDE1IDQxLjMxNCAxNSAzOFYzMFoiIGZpbGw9IiMwMDcxYzIiLz48Y2lyY2xlIGN4PSIzNSIgY3k9IjI1IiByPSI1IiBmaWxsPSIjZmZjYzAwIi8+PC9zdmc+"
+            alt="Reviews icon"
+          />
+          <div class="benefit-content">
+            <h3>5 million+ reviews</h3>
+            <p>By real, verified customers</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Destinations -->
+      <div class="destinations-container">
+        <div class="destinations-column">
+          <h2>Top Worldwide Destinations</h2>
+          <div class="destinations-list">
+            <a href="#">Orlando International Airport</a>
+            <a href="#">Los Angeles</a>
+            <a href="#">Las Vegas</a>
+            <a href="#">Denver</a>
+            <a href="#">Atlanta</a>
+            <a href="#">Dallas</a>
+            <a href="#">Chicago</a>
+            <a href="#">San Francisco</a>
+            <a href="#">Seattle</a>
+            <a href="#">Fort Lauderdale</a>
+          </div>
+        </div>
+        <div class="destinations-column">
+          <h2>Top Worldwide Airports</h2>
+          <div class="destinations-list">
+            <a href="#">Orlando Airport</a>
+            <a href="#">Los Angeles Airport</a>
+            <a href="#">Las Vegas Airport</a>
+            <a href="#">Denver Airport</a>
+            <a href="#">Atlanta Airport</a>
+            <a href="#">San Francisco Airport</a>
+            <a href="#">Seattle Airport</a>
+            <a href="#">Fort Lauderdale Airport</a>
+            <a href="#">Miami Airport</a>
+            <a href="#">Dallas Fort Worth Airport</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Information -->
+      <div class="additional-info">
+        <div class="additional-info-header">Additional Information</div>
+        <div class="dropdown">
+          Related searches
+          <span>▼</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-top">
+        <div class="company-info">
+          <p>
+            Rentalcars.com is a trading name of Booking.com Transport Limited
+            which is a limited company registered in England and Wales (Number:
+            05179829) whose registered address is at 6 Goods Yard Street,
+            Manchester, M3 3BG, United Kingdom. VAT number: GB 855349007.
+          </p>
+          <p>
+            Rentalcars.com is part of Booking Holdings Inc., the world leader in
+            online travel & related services.
+          </p>
+        </div>
+        <div class="partner-logos">
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/booking-logo/f9e67e36c223177bfad5dbb395542ae5f8a65124.svg"
+            alt="Booking.com"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/priceline-logo/f1a9a5813af4f1a8b5f9d95e6548d5ec0ff9a746.svg"
+            alt="Priceline"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/kayak-logo/2e5c0ab4f8a5e7dfd79f0c10a3c11afe3e005f3a.svg"
+            alt="KAYAK"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/agoda-logo/eb08a3c97e86c8b75a3b9b0c8c26a1d2a9f2986e.svg"
+            alt="Agoda"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/rc-logo/5ca42296a5c1d4a645d5cc5aad4c9e5e9e9e9d9e.svg"
+            alt="Rentalcars.com"
+          />
+          <img
+            class="partner-logo"
+            src="https://cf.bstatic.com/static/img/rentalcars/logo/opentable-logo/a7e58f7a3d7e3eb3e8b2a4c5c7c5c5c5c5c5c5c5.svg"
+            alt="OpenTable"
+          />
+        </div>
+        <div class="copyright">
+          Copyright © 2023 Booking.com Transport Limited trading as
+          Rentalcars.com. All rights reserved
+        </div>
+      </div>
+      <div class="footer-nav">
+        <a href="#" class="footer-link">Privacy Statement</a>
+        <a href="#" class="footer-link">Cookies</a>
+        <a href="#" class="footer-link">Terms of service</a>
+        <a href="#" class="footer-link">Help</a>
+        <a href="#" class="footer-link">Modern Slavery Statement</a>
+        <a href="#" class="footer-link">Human Rights Statement</a>
+        <a href="#" class="footer-link">How we Work</a>
+        <a href="#" class="footer-link"
+          >Supply Partner Enquiry and Marketplace</a
+        >
+        <a href="#" class="footer-link">Affiliate Programme</a>
+        <a href="#" class="footer-link">Careers</a>
+        <a href="#" class="footer-link">Contact Us</a>
+      </div>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        initLogger("redfin-sp.json");
+        const btn = document.querySelector(".search-btn");
+        btn.addEventListener("click", function (event) {
+          downloadLog();
+        });
+      });
+    </script>
+  </body>
+</html>
